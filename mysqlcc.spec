@@ -6,6 +6,7 @@ Version:	0.9.2
 Release:	1
 License:	GPL
 Source0:	http://sunsite.icm.edu.pl/mysql/Downloads/MySQLCC/%{name}-%{version}-src.tar.gz
+# Source0-md5:	812c762b91011f0d1c2d834ce05fd5c3
 Patch0:		%{name}-defaultpath.patch
 Patch1:		%{name}-m4.patch
 URL:		http://www.mysql.com/products/mysqlcc/
