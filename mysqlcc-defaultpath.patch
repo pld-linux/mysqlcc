@@ -1,5 +1,5 @@
---- mysqlcc-0.8.7-src/src/CApplication.cpp.orig	2003-01-12 00:49:00.000000000 +0200
-+++ mysqlcc-0.8.7-src/src/CApplication.cpp	2003-01-12 00:49:32.000000000 +0200
+--- mysqlcc-0.9.4-src/src/CApplication.cpp.orig	2003-12-14 00:10:43.000000000 +0100
++++ mysqlcc-0.9.4-src/src/CApplication.cpp	2004-02-01 18:45:15.865393376 +0100
 @@ -109,8 +109,8 @@
    mydir += "/";
  #else
