@@ -1,0 +1,13 @@
+--- mysqlcc-0.8.7-src/src/CApplication.cpp.orig	2003-01-12 00:49:00.000000000 +0200
++++ mysqlcc-0.8.7-src/src/CApplication.cpp	2003-01-12 00:49:32.000000000 +0200
+@@ -119,8 +119,8 @@
+   confirm_critical = strtobool(cfg->readStringEntry("Confirm Critical", "true"));
+   
+   //Directory where mysqlcc.exe (or mysqlcc) is.
+-  QString mydir = QDir::currentDirPath() + "/";
+-  //QString mydir = "/usr/share/mysqlcc/";  This needs to be done with a PREFIX define ..
++  //QString mydir = QDir::currentDirPath() + "/";
++  QString mydir = "/usr/share/mysqlcc/";  //This needs to be done with a PREFIX define ..
+   
+   //Translations path
+   translations_path = cfg->readStringEntry("Translations Path", mydir + "translations/");

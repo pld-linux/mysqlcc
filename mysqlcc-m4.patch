@@ -1,0 +1,40 @@
+diff -urN mysqlcc-0.8.9-src.org/acinclude.m4 mysqlcc-0.8.9-src/acinclude.m4
+--- mysqlcc-0.8.9-src.org/acinclude.m4	Tue Feb  4 21:59:45 2003
++++ mysqlcc-0.8.9-src/acinclude.m4	Tue Feb  4 22:09:14 2003
+@@ -17,12 +17,12 @@
+         for dir in $mysql_lib; do
+             if test "x$mysql_found" != "xyes"
+             then
+-                AC_CHECK_FILE("$dir/libmysqlclient.a",
++                AC_CHECK_FILE("$dir/libmysqlclient.so",
+                               mysql_found=yes, mysql_found=no)
+                 if test "x$mysql_found" = "xyes"
+                 then
+                     LIBS="-L$dir $SAVE_LIBS $LIBZ_LIB"
+-                    MYSQL_LIB="$dir/libmysqlclient.a $LIBZ_LIB"
++                    MYSQL_LIB="-lmysqlclient $LIBZ_LIB"
+                     AC_SUBST(MYSQL_LIB)
+                     AC_CHECK_LIB(mysqlclient, mysql_real_connect,
+                                  mysql_ok=yes, mysql_ok=no)
+@@ -99,7 +99,7 @@
+ fi
+ 
+ AC_MSG_CHECKING("if Qt Version in $QTDIR is >= 3.0.5")
+-CPPFLAGS="$CPPFLAGS -I$QTDIR/include"
++CPPFLAGS="$CPPFLAGS -I$QTDIR/include/qt"
+ AC_TRY_CPP([
+ #include <qglobal.h>
+ #if QT_VERSION < 0x030005
+diff -urN mysqlcc-0.8.9-src.org/configure.in mysqlcc-0.8.9-src/configure.in
+--- mysqlcc-0.8.9-src.org/configure.in	Tue Feb  4 21:59:45 2003
++++ mysqlcc-0.8.9-src/configure.in	Tue Feb  4 22:12:10 2003
+@@ -24,7 +24,9 @@
+ AC_SUBST(MYSQLCC_HEADERS)
+ AC_SUBST(MYSQLCC_SOURCES)
+ AC_OUTPUT(mysqlcc.pro)
++if test -z "$QMAKESPEC" ; then
+ QMAKESPEC=$QTDIR/mkspecs/$host_os
++fi
+ echo "Creating Makefile with qmake"
+ QMAKESPEC=$QMAKESPEC QTDIR=$QTDIR $QTDIR/bin/qmake mysqlcc.pro
+ if test ! $? = 0 ; then
