@@ -25,7 +25,7 @@ mysqlcc is a platform independent graphical MySQL administration
 client. It is based on Trolltech's Qt toolkit.
 
 %description -l pl
-mysqlcc jest niezale¿nym od platformy graficznym clientem
+mysqlcc jest niezale¿nym od platformy graficznym klientem
 administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 
 %prep
