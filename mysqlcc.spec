@@ -10,11 +10,13 @@ Source0:	ftp://sunsite.icm.edu.pl/pub/unix/mysql/Downloads/MyCC/%{name}-%{versio
 Patch0:		%{name}-defaultpath.patch
 Patch1:		%{name}-m4.patch
 URL:		http://www.mysql.com/products/mysqlcc/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	ImageMagick
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	mysql-devel < 4.0
-BuildRequires:	zlib-devel
 BuildRequires:	qt-devel >= 3.0.5
+BuildRequires:	zlib-devel
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 mysqlcc is a platform independent graphical MySQL administration
