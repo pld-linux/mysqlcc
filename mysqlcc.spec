@@ -15,6 +15,7 @@ BuildRequires:	ImageMagick-coder-png
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	mysql-devel >= 4.0.3
+BuildRequires:	qmake
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -38,7 +39,8 @@ cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 QTDIR=%{_prefix}; export QTDIR
 QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++; export QMAKESPEC
-%configure
+%configure \
+	--with-mysql-lib=%{_libdir}
 %{__make}
 
 %install
