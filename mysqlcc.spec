@@ -48,7 +48,7 @@ QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++; export QMAKESPEC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}/translations}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}/translations,%{_desktopdir},%{_pixmapsdir}}
 
 install mysqlcc $RPM_BUILD_ROOT%{_bindir}
 install {*.wav,syntax.txt} $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -56,7 +56,6 @@ install translations/*.qm \
 		$RPM_BUILD_ROOT%{_datadir}/%{name}/translations
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
-install -d $RPM_BUILD_ROOT%{_pixmapsdir}
 convert xpm/applicationIcon.xpm -resize 48x48 $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 
 %clean
