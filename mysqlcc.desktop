@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=MySQL Control Center
+Name=mysqlcc
 Comment=MySQL Control Center
 Exec=mysqlcc
 Terminal=false
