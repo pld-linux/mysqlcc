@@ -2,7 +2,8 @@ Summary:	The MySQL Control Center
 Summary(pl):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
-Version:	0.8.9
+# all higher versions than 0.8.7 require mysql 4.0
+Version:	0.8.7
 Release:	1
 License:	GPL
 Source0:	ftp://sunsite.icm.edu.pl/pub/unix/mysql/Downloads/MyCC/%{name}-%{version}-src.tar.gz
@@ -11,7 +12,7 @@ Patch1:		%{name}-m4.patch
 URL:		http://www.mysql.com/products/mysqlcc/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	ImageMagick
-BuildRequires:	mysql-devel
+BuildRequires:	mysql-devel < 4.0
 BuildRequires:	zlib-devel
 BuildRequires:	qt-devel >= 3.0.5
 
@@ -56,7 +57,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changelog.txt INSTALL.txt LICENSE.txt README.txt TODO.txt
 %attr(755,root,root) %{_bindir}/mysqlcc
 %{_datadir}/%{name}
-%{_iconsdir}/%{name}.*
-%{_miconsdir}/%{name}.*
-%{_liconsdir}/%{name}.*
-%{_menudir}/%{name}
+%{_pixmapsdir}/%{name}.*
