@@ -11,9 +11,10 @@ Patch0:		%{name}-defaultpath.patch
 Patch1:		%{name}-m4.patch
 URL:		http://www.mysql.com/products/mysqlcc/
 BuildRequires:	ImageMagick
+BuildRequires:	ImageMagick-coder-png
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	mysql-devel >= 4.0.0
+BuildRequires:	mysql-devel >= 4.0.3
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -27,7 +28,7 @@ mysqlcc jest niezale¿nym od platformy graficznym clientem
 administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 
 %prep
-%setup -n %{name}-%{version}-src -q
+%setup -q -n %{name}-%{version}-src
 %patch0 -p1
 %patch1 -p1
 
@@ -41,11 +42,11 @@ QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++; export QMAKESPEC
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/translations
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_datadir}/%{name}/translations}
+
 install mysqlcc $RPM_BUILD_ROOT%{_bindir}
 install {*.wav,syntax.txt} $RPM_BUILD_ROOT%{_datadir}/%{name}
-install translations/*.{qm,ts} \
+install translations/*.qm \
 		$RPM_BUILD_ROOT%{_datadir}/%{name}/translations
 
 install -d $RPM_BUILD_ROOT%{_pixmapsdir}
@@ -56,7 +57,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc Changelog.txt INSTALL.txt LICENSE.txt README.txt TODO.txt
+%doc Changelog.txt INSTALL.txt README.txt TODO.txt
 %attr(755,root,root) %{_bindir}/mysqlcc
-%{_datadir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*.wav
+%{_datadir}/%{name}/syntax.txt
+%dir %{_datadir}/%{name}/translations
+%lang(de) %{_datadir}/%{name}/translations/Deutsch.qm
+%lang(fr) %{_datadir}/%{name}/translations/French.qm
+%lang(it) %{_datadir}/%{name}/translations/Italian.qm
+%lang(pl) %{_datadir}/%{name}/translations/Polish.qm
+%lang(ru) %{_datadir}/%{name}/translations/Russian.qm
+%lang(zh_CN) %{_datadir}/%{name}/translations/Simplified_Chinese.qm
+%lang(es) %{_datadir}/%{name}/translations/Spanish.qm
+%lang(zh_TW) %{_datadir}/%{name}/translations/Traditional_Chinese.qm
 %{_pixmapsdir}/%{name}.*
