@@ -36,7 +36,7 @@ administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 %{__autoconf}
 QTDIR=%{_prefix}; export QTDIR
 QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++; export QMAKESPEC
-%configure 
+%configure
 %{__make}
 
 %install
