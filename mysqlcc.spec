@@ -5,7 +5,7 @@ Group:		Applications/Databases
 Version:	0.8.7
 Release:	1mdk
 License:	GPL
-Source0:	%{name}-%{version}-src.tar.bz2
+Source0:	ftp://sunsite.icm.edu.pl/pub/unix/mysql/Downloads/MyCC/%{name}-%{version}-src.tar.bz2
 Patch0:		%{name}-0.8.7-defaultpath.patch.bz2
 URL:		http://www.mysql.com/products/mysqlcc/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
