@@ -2,11 +2,11 @@ Summary:	The MySQL Control Center
 Summary(pl):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
-Version:	0.9.2
+Version:	0.9.3
 Release:	1
 License:	GPL
 Source0:	http://sunsite.icm.edu.pl/mysql/Downloads/MySQLCC/%{name}-%{version}-src.tar.gz
-# Source0-md5:	812c762b91011f0d1c2d834ce05fd5c3
+# Source0-md5:	9d49fa0658cd8cf81ee5f64bc942b4e9
 Patch0:		%{name}-defaultpath.patch
 Patch1:		%{name}-m4.patch
 URL:		http://www.mysql.com/products/mysqlcc/
