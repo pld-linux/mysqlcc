@@ -2,16 +2,18 @@ Summary:	The MySQL Control Center
 Summary(pl):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
-Version:	0.8.7
-Release:	1mdk
+Version:	0.8.9
+Release:	1
 License:	GPL
 Source0:	ftp://sunsite.icm.edu.pl/pub/unix/mysql/Downloads/MyCC/%{name}-%{version}-src.tar.gz
-Patch0:		%{name}-0.8.7-defaultpath.patch.bz2
+Patch0:		%{name}-defaultpath.patch
+Patch1:		%{name}-m4.patch
 URL:		http://www.mysql.com/products/mysqlcc/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	ImageMagick
 BuildRequires:	mysql-devel
-BuildRequires:	qt-devel >= 3.0
+BuildRequires:	zlib-devel
+BuildRequires:	qt-devel >= 3.0.5
 
 %description
 mysqlcc is a platform independent graphical MySQL administration
@@ -23,12 +25,15 @@ administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 
 %prep
 %setup -n %{name}-%{version}-src -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
-export CFLAGS="%{rpmcflags}"
-./configure --prefix=%{_prefix}
-export QTDIR=%{_libdir}/qt3
+%{__aclocal}
+%{__autoconf}
+QTDIR=%{_prefix}; export QTDIR
+QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++; export QMAKESPEC
+%configure 
 %{__make}
 
 %install
@@ -40,28 +45,8 @@ install {*.wav,syntax.txt} $RPM_BUILD_ROOT%{_datadir}/%{name}
 install translations/*.{qm,ts} \
 		$RPM_BUILD_ROOT%{_datadir}/%{name}/translations
 
-install -d $RPM_BUILD_ROOT%{_menudir}
-cat <<EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): \
-needs="x11" \
-section="Applications/Databases" \
-title="MySqlCC" \
-longtitle="MySqlCC" \
-command="%{_bindir}/mysqlcc" needs="X11" \
-icon="%{name}.png"
-EOF
-
-install -d %{buildroot}/{%{_miconsdir},%{_liconsdir},%{_iconsdir}}
-convert xpm/applicationIcon.xpm -resize 16x16 $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
-convert xpm/applicationIcon.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
-convert xpm/applicationIcon.xpm -resize 48x48 $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
-
-%post
-%{update_menus}
-/sbin/ldconfig
-
-%postun
-%{clean_menus}
+install -d $RPM_BUILD_ROOT%{_pixmapsdir}
+convert xpm/applicationIcon.xpm -resize 48x48 $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 
 %clean
 rm -rf $RPM_BUILD_ROOT
