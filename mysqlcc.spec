@@ -1,50 +1,57 @@
-Name: 		mysqlcc
-Version: 	0.8.7
+Summary:	The MySQL Control Center
+Summary(pl):	Centrum sterowania MySQL-a
+Name:		mysqlcc
+Group:		Applications/Databases
+Version:	0.8.7
 Release:	1mdk
 License:	GPL
-Group:		Databases
-Summary:	The MySQL Control Center
+Source0:	%{name}-%{version}-src.tar.bz2
+Patch0:		%{name}-0.8.7-defaultpath.patch.bz2
 URL:		http://www.mysql.com/products/mysqlcc/
-Source:		%{name}-%{version}-src.tar.bz2
-Patch:		mysqlcc-0.8.7-defaultpath.patch.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
-BuildRequires:	libqt3-devel mysql-devel ImageMagick
-%define 	prefix	%{_prefix}
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRequires:	ImageMagick
+BuildRequires:	mysql-devel
+BuildRequires:	qt-devel >= 3.0
 
 %description
-mysqlcc is a platform independent graphical MySQL administration client.
-It is based on Trolltech's Qt toolkit.
+mysqlcc is a platform independent graphical MySQL administration
+client. It is based on Trolltech's Qt toolkit.
+
+%description -l pl
+mysqlcc jest niezale¿nym od platformy graficznym clientem
+administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 
 %prep
 %setup -n %{name}-%{version}-src -q
 %patch -p1
+
 %build
-export CFLAGS="$RPM_OPT_FLAGS"
-./configure --prefix=%{prefix}
+export CFLAGS="%{rpmcflags}"
+./configure --prefix=%{_prefix}
 export QTDIR=%{_libdir}/qt3
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}/translations
-install -m 755 mysqlcc $RPM_BUILD_ROOT%{prefix}/bin
-install -m 644 {*.wav,syntax.txt} $RPM_BUILD_ROOT%{_datadir}/%{name}
-install -m 644 translations/*.{qm,ts} \
-               $RPM_BUILD_ROOT%{_datadir}/%{name}/translations
+install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/translations
+install mysqlcc $RPM_BUILD_ROOT%{_bindir}
+install {*.wav,syntax.txt} $RPM_BUILD_ROOT%{_datadir}/%{name}
+install translations/*.{qm,ts} \
+		$RPM_BUILD_ROOT%{_datadir}/%{name}/translations
 
-mkdir -p $RPM_BUILD_ROOT%{_menudir}
+install -d $RPM_BUILD_ROOT%{_menudir}
 cat <<EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
 ?package(%{name}): \
 needs="x11" \
 section="Applications/Databases" \
 title="MySqlCC" \
 longtitle="MySqlCC" \
-command="/usr/bin/mysqlcc" needs="X11" \
+command="%{_bindir}/mysqlcc" needs="X11" \
 icon="%{name}.png"
 EOF
 
-mkdir -p %{buildroot}/{%{_miconsdir},%{_liconsdir},%{_iconsdir}}
+install -d %{buildroot}/{%{_miconsdir},%{_liconsdir},%{_iconsdir}}
 convert xpm/applicationIcon.xpm -resize 16x16 $RPM_BUILD_ROOT%{_miconsdir}/%{name}.png
 convert xpm/applicationIcon.xpm $RPM_BUILD_ROOT%{_iconsdir}/%{name}.png
 convert xpm/applicationIcon.xpm -resize 48x48 $RPM_BUILD_ROOT%{_liconsdir}/%{name}.png
@@ -56,23 +63,15 @@ convert xpm/applicationIcon.xpm -resize 48x48 $RPM_BUILD_ROOT%{_liconsdir}/%{nam
 %postun
 %{clean_menus}
 
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
+%defattr(644,root,root,755)
 %doc Changelog.txt INSTALL.txt LICENSE.txt README.txt TODO.txt
-%{_bindir}/mysqlcc
+%attr(755,root,root) %{_bindir}/mysqlcc
 %{_datadir}/%{name}
 %{_iconsdir}/%{name}.*
 %{_miconsdir}/%{name}.*
 %{_liconsdir}/%{name}.*
 %{_menudir}/%{name}
-
-%changelog
-* Sun Jan 12 2003 Buchan Milne <bgmilne@linux-mandrake.com 0.8.7-1mdk
-- 0.8.7
-
-* Tue Nov 12 2002 Buchan Milne <bgmilne@linux-mandrake.com 0.8.6a-1mdk
-- First mandrake package (based on shipped spec file)
