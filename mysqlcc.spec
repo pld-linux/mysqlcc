@@ -7,6 +7,7 @@ Release:	4
 License:	GPL
 Source0:	http://sunsite.icm.edu.pl/mysql/Downloads/MySQLCC/%{name}-%{version}-src.tar.gz
 # Source0-md5:	26ee3528dce690b227d8bfb71b46ae66
+Source1:	%{name}.desktop
 Patch0:		%{name}-defaultpath.patch
 Patch1:		%{name}-m4.patch
 Patch2:		%{name}-shutdown.patch
@@ -53,6 +54,7 @@ install mysqlcc $RPM_BUILD_ROOT%{_bindir}
 install {*.wav,syntax.txt} $RPM_BUILD_ROOT%{_datadir}/%{name}
 install translations/*.qm \
 		$RPM_BUILD_ROOT%{_datadir}/%{name}/translations
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 
 install -d $RPM_BUILD_ROOT%{_pixmapsdir}
 convert xpm/applicationIcon.xpm -resize 48x48 $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
@@ -77,3 +79,4 @@ rm -rf $RPM_BUILD_ROOT
 %lang(es) %{_datadir}/%{name}/translations/Spanish.qm
 %lang(zh_TW) %{_datadir}/%{name}/translations/Traditional_Chinese.qm
 %{_pixmapsdir}/%{name}.*
+%{_desktopdir}/*

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=MySQL Control Center
+Comment=MySQL Control Center
+Exec=mysqlcc
+Terminal=false
+Type=Application
+Icon=mysqlcc.xpm
+Categories=Database;Engines&Servers;Front-Ends;
+Encoding=UTF-8
+# vi: encoding=utf-8
+
