@@ -3,7 +3,7 @@ Summary(pl):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
 Version:	0.9.4
-Release:	1
+Release:	2
 License:	GPL
 Source0:	http://sunsite.icm.edu.pl/mysql/Downloads/MySQLCC/%{name}-%{version}-src.tar.gz
 # Source0-md5:	26ee3528dce690b227d8bfb71b46ae66
@@ -33,6 +33,7 @@ administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 %patch1 -p1
 
 %build
+cp -f /usr/share/automake/config.sub .
 %{__aclocal}
 %{__autoconf}
 QTDIR=%{_prefix}; export QTDIR
