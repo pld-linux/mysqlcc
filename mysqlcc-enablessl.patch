@@ -1,0 +1,11 @@
+diff -urN mysqlcc-0.9.4-src.org/src/CRegisterServerDialog.cpp mysqlcc-0.9.4-src/src/CRegisterServerDialog.cpp
+--- mysqlcc-0.9.4-src.org/src/CRegisterServerDialog.cpp	2003-12-14 00:10:44.000000000 +0100
++++ mysqlcc-0.9.4-src/src/CRegisterServerDialog.cpp	2005-02-18 10:32:23.000000000 +0100
+@@ -592,7 +592,6 @@
+   OptionsLayout->addMultiCellWidget(enableCompletionCheckBox, 2, 2, 0, 1);
+   
+   SSLCheckBox = new QCheckBox(Options, "SSLCheckBox");
+-  SSLCheckBox->setEnabled(false);  //TODO ... REMOVE WHEN FULLY SUPPORTED
+   
+   OptionsLayout->addWidget(SSLCheckBox, 2, 2);
+   
