@@ -1,0 +1,13 @@
+diff -urN mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp mysqlcc-0.9.4-src/shared/src/CMySQL.cpp
+--- mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp	2003-12-14 00:10:44.000000000 +0100
++++ mysqlcc-0.9.4-src/shared/src/CMySQL.cpp	2005-04-11 22:18:48.000000000 +0200
+@@ -567,6 +567,9 @@
+   qDebug("CMySQL::mysqlGetCharsetName()");
+ #endif
+   
++  if (version().major >= 4 && version().minor >= 1)
++    return  "utf8";
++
+   if (isConnected())
+     return  mysql_character_set_name(mysql);
+   else
