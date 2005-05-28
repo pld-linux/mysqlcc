@@ -1,3 +1,6 @@
+#
+%bcond_with	mysql40 # support for mysql 4.0.x
+
 Summary:	The MySQL Control Center
 Summary(pl):	Centrum sterowania MySQL-a
 Name:		mysqlcc
@@ -18,7 +21,8 @@ BuildRequires:	ImageMagick
 BuildRequires:	ImageMagick-coder-png
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	mysql-devel >= 4.1.0
+%{?!with_mysql40:BuildRequires:	mysql-devel >= 4.1.0}
+%{?with_mysql40:BuildRequires:	mysql-devel >= 4.0.0}
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 3.0.5
 BuildRequires:	zlib-devel
@@ -36,7 +40,7 @@ administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 %setup -q -n %{name}-%{version}-src
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
+%{?!with_mysql40:%patch2 -p1}
 %patch3 -p1
 %patch4 -p1
 
