@@ -1,0 +1,12 @@
+diff -urN mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp mysqlcc-0.9.4-src/shared/src/CMySQL.cpp
+--- mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp	2003-12-14 00:10:44.000000000 +0100
++++ mysqlcc-0.9.4-src/shared/src/CMySQL.cpp	2006-02-14 21:00:11.692957500 +0100
+@@ -70,7 +70,7 @@
+ 
+   mysql = 0;
+   textcodec = 0;
+-  mysql_client_flags = 0;
++  mysql_client_flags = MYSQL_OPT_RECONNECT;
+   mysql_client_ssl = false;
+   mysql_opt_compress = false;
+   mysql_opt_timeout = 0;
