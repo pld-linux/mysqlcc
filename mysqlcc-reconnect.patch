@@ -8,7 +8,7 @@ diff -ur mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp mysqlcc-0.9.4-src/shared/sr
 +bool CMySQL::reConnect() const
 +{
 +  if (!isConnected() && (mysql != 0))
-+    return mysql_reconnect(mysql);
++    return mysql_ping(mysql);
 +}
 +
  bool CMySQL::isConnected() const
