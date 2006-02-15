@@ -1,3 +1,177 @@
+diff -ur mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp mysqlcc-0.9.4-src/shared/src/CMySQL.cpp
+--- mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp	2006-02-15 09:37:32.974006296 +0100
++++ mysqlcc-0.9.4-src/shared/src/CMySQL.cpp	2006-02-15 09:37:10.572256024 +0100
+@@ -98,6 +98,12 @@
+ }
+ 
+ 
++bool CMySQL::reConnect() const
++{
++  if (!isConnected() && (mysql != 0))
++    return mysql_reconnect(mysql);
++}
++
+ bool CMySQL::isConnected() const
+ {
+   return isconnected && (mysql != 0);
+@@ -273,7 +279,8 @@
+ ulong CMySQL::mysqlAffectedRows() const
+ {
+   if (!isConnected())
+-    return 0;
++    if (!reConnect())
++      return 0;
+   else
+     return mysql_affected_rows(mysql);
+ }
+@@ -284,7 +291,8 @@
+ ulong CMySQL::mysqlInsertID() const
+ {
+   if (!isConnected())
+-    return 0;
++    if (!reConnect())
++      return 0;
+   else
+     return mysql_insert_id(mysql);
+ }
+@@ -300,7 +308,8 @@
+ #endif
+   
+   if (!isConnected())
+-    return false;
++    if (!reConnect())
++      return false;
+   
+   if (mysql_select_db(mysql, dbname) != 0)
+   {
+@@ -324,7 +333,7 @@
+ #endif
+   
+   
+-  if (!isConnected() || (version().major <= 3 && version().minor <= 22))
++  if ((!isConnected() && !reConnect()) || (version().major <= 3 && version().minor <= 22))
+     return QString::null;
+ 
+   QString ret = QString::null;
+@@ -351,7 +360,8 @@
+ #endif
+   
+   if (!isConnected())
+-    return QString::null;  
++    if (!reConnect())
++      return QString::null;  
+   
+   QString ret = QString::null;
+   CMySQLQuery *qry = new CMySQLQuery(this);
+@@ -405,7 +415,8 @@
+ #endif
+   
+   if (!isConnected())
+-    return false;
++    if (!reConnect())
++      return false;
+   
+   if (mysql_ping(mysql) != 0)
+   {
+@@ -427,7 +438,8 @@
+ #endif
+   
+   if (!isConnected())
+-    return false;
++    if (!reConnect())
++      return false;
+   
+   if (mysql_kill(mysql, pid) != 0)
+   {
+@@ -449,7 +461,8 @@
+ #endif
+   
+   if (!isConnected())
+-    return false;
++    if (!reConnect())
++      return false;
+   
+   if (mysql_shutdown(mysql, SHUTDOWN_DEFAULT) != 0)
+   {
+@@ -470,7 +483,8 @@
+ #endif
+   
+   if (isConnected())
+-    return mysql_info(mysql);
++    if (!reConnect())
++      return mysql_info(mysql);
+   else
+     return QString::null;
+ }
+@@ -498,7 +512,8 @@
+ #endif
+   
+   if (isConnected())
+-    return mysql_get_host_info(mysql);
++    if (!reConnect())
++      return mysql_get_host_info(mysql);
+   else
+     return QString::null;
+ }
+@@ -513,7 +528,8 @@
+ #endif
+   
+   if (isConnected())
+-    return mysql_get_proto_info(mysql);
++    if (!reConnect())
++      return mysql_get_proto_info(mysql);
+   else
+     return 0;
+ }
+@@ -529,7 +545,8 @@
+ #endif
+   
+   if (isConnected())
+-    return mysql_get_server_info(mysql);
++    if (!reConnect())
++      return mysql_get_server_info(mysql);
+   else
+     return QString::null;
+ }
+@@ -545,7 +562,8 @@
+ #endif
+   
+   if (!isConnected())
+-    return QString::null;
++    if (!reConnect())
++      return QString::null;
+   
+   QString tmp = mysql_stat(mysql);
+   
+@@ -568,7 +586,8 @@
+ #endif
+   
+   if (isConnected())
+-    return  mysql_character_set_name(mysql);
++    if (!reConnect())
++      return  mysql_character_set_name(mysql);
+   else
+     return  QString::null;
+ }
+@@ -594,7 +613,7 @@
+ 
+   QRegExp rx("^(\\d+)\\.(\\d+)\\.(.+)$");
+   QString str = mysqlGetServerInfo();
+-  if (!isConnected() || str.isEmpty() || rx.search(str) == -1)
++  if ((!isConnected() && !reConnect()) || str.isEmpty() || rx.search(str) == -1)
+   {
+     ver.major = 0;
+     ver.minor = 0;
+@@ -631,7 +650,8 @@
+ #endif
+   
+   if (isConnected())
+-    return mysql_real_escape_string(mysql, to, from, from_length);
++    if (!reConnect())
++      return mysql_real_escape_string(mysql, to, from, from_length);
+   else
+     return 0;
+ }
 diff -urN mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp mysqlcc-0.9.4-src/shared/src/CMySQL.cpp
 --- mysqlcc-0.9.4-src.org/shared/src/CMySQL.cpp	2003-12-14 00:10:44.000000000 +0100
 +++ mysqlcc-0.9.4-src/shared/src/CMySQL.cpp	2006-02-14 21:00:11.692957500 +0100
