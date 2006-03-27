@@ -1,0 +1,3 @@
+- removed LICENSE.txt from doc (just GPL)
+- use %lang for translations, don't include translation sources
+- BR: ImageMagick-coder-png
