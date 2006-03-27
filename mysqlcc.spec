@@ -6,7 +6,7 @@ Summary(pl):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
 Version:	0.9.4
-Release:	12
+Release:	13
 License:	GPL
 Source0:	http://sunsite.icm.edu.pl/mysql/Downloads/MySQLCC/%{name}-%{version}-src.tar.gz
 # Source0-md5:	26ee3528dce690b227d8bfb71b46ae66
@@ -21,7 +21,7 @@ BuildRequires:	ImageMagick
 BuildRequires:	ImageMagick-coder-png
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?!with_mysql40:BuildRequires:	mysql-devel >= 4.1.0}
+%{!?with_mysql40:BuildRequires:	mysql-devel >= 4.1.0}
 %{?with_mysql40:BuildRequires:	mysql-devel >= 4.0.0}
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 3.0.5
@@ -40,7 +40,7 @@ administracji MySQL-em. Dzia³a w oparciu o toolkit Qt Trolltecha.
 %setup -q -n %{name}-%{version}-src
 %patch0 -p1
 %patch1 -p1
-%{?!with_mysql40:%patch2 -p1}
+%{!?with_mysql40:%patch2 -p1}
 %patch3 -p1
 %patch4 -p1
 
