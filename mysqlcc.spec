@@ -86,4 +86,4 @@ rm -rf $RPM_BUILD_ROOT
 %lang(es) %{_datadir}/%{name}/translations/Spanish.qm
 %lang(zh_TW) %{_datadir}/%{name}/translations/Traditional_Chinese.qm
 %{_pixmapsdir}/%{name}.*
-%{_desktopdir}/*
+%{_desktopdir}/*.desktop
