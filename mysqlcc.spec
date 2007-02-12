@@ -2,7 +2,7 @@
 %bcond_with	mysql40 # support for mysql 4.0.x
 
 Summary:	The MySQL Control Center
-Summary(pl):	Centrum sterowania MySQL-a
+Summary(pl.UTF-8):   Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
 Version:	0.9.4
@@ -32,9 +32,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 mysqlcc is a platform independent graphical MySQL administration
 client. It is based on Trolltech's Qt toolkit.
 
-%description -l pl
-mysqlcc jest niezaleønym od platformy graficznym klientem
-administracji MySQL-em. Dzia≥a w oparciu o toolkit Qt Trolltecha.
+%description -l pl.UTF-8
+mysqlcc jest niezale≈ºnym od platformy graficznym klientem
+administracji MySQL-em. Dzia≈Ça w oparciu o toolkit Qt Trolltecha.
 
 %prep
 %setup -q -n %{name}-%{version}-src
