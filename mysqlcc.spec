@@ -2,7 +2,7 @@
 %bcond_with	mysql40 # support for mysql 4.0.x
 
 Summary:	The MySQL Control Center
-Summary(pl.UTF-8):   Centrum sterowania MySQL-a
+Summary(pl.UTF-8):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
 Version:	0.9.4
