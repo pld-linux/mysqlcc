@@ -24,7 +24,7 @@ BuildRequires:	automake
 %{!?with_mysql40:BuildRequires:	mysql-devel >= 4.1.0}
 %{?with_mysql40:BuildRequires:	mysql-devel >= 4.0.0}
 BuildRequires:	qmake
-BuildRequires:	qt-devel >= 3.0.5
+BuildRequires:	qt-devel >= 3:3.0.5
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
