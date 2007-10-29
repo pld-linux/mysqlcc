@@ -1,0 +1,46 @@
+--- mysqlcc/src/main.cpp.org	2007-10-29 08:36:59.559305575 +0100
++++ mysqlcc/src/main.cpp	2007-10-29 08:48:28.160150083 +0100
+@@ -90,31 +90,31 @@
+ 
+   {"version", 'V', "Print version information and exit.", 0, 0, 0, GET_NO_ARG, NO_ARG, 0, 0, 0, 0, 0, 0},
+ 
+-  {"connect_timeout", OPT_CONNECT_TIMEOUT, "", (gptr*) &opt_connect_timeout,
+-   (gptr*) &opt_connect_timeout, 0, GET_ULONG, REQUIRED_ARG, 0, 0, 3600*12, 0,
+-   0, 1},
++  {"connect_timeout", OPT_CONNECT_TIMEOUT, "", (unsigned char **) &opt_connect_timeout,
++   (unsigned char **) &opt_connect_timeout, 0, GET_ULONG, REQUIRED_ARG, 0, 0, 3600*12, 0,
++   0, (void*)1},
+ 
+-  {"select_limit", OPT_SELECT_LIMIT, "", (gptr*) &select_limit,
+-   (gptr*) &select_limit, 0, GET_ULONG, REQUIRED_ARG, 1000L, 1, ~0L, 0, 1, 0},
++  {"select_limit", OPT_SELECT_LIMIT, "", (unsigned char **) &select_limit,
++   (unsigned char **) &select_limit, 0, GET_ULONG, REQUIRED_ARG, 1000L, 1, ~0L, 0, 1, 0},
+   
+   {"net_buffer_length", OPT_NET_BUFFER_LENGTH, "",
+-   (gptr*) &my_net_buffer_length, (gptr*) &my_net_buffer_length, 0, GET_ULONG,
++   (unsigned char **) &my_net_buffer_length, (unsigned char **) &my_net_buffer_length, 0, GET_ULONG,
+    REQUIRED_ARG, 16384, 1024, 512*1024*1024L, 0, 1024, 0},
+ 
+   {"max_allowed_packet", OPT_MAX_ALLOWED_PACKET, "",
+-   (gptr*) &my_max_allowed_packet, (gptr*) &my_max_allowed_packet, 0, GET_ULONG,
++   (unsigned char **) &my_max_allowed_packet, (unsigned char **) &my_max_allowed_packet, 0, GET_ULONG,
+    REQUIRED_ARG, 16 *1024L*1024L, 4096, 512*1024L*1024L, 0,
+    1024, 0},
+ 
+   {"local-infile", OPT_LOCAL_INFILE, "Enable/disable LOAD DATA LOCAL INFILE.",
+-   (gptr*) &opt_local_infile,
+-   (gptr*) &opt_local_infile, 0, GET_BOOL, OPT_ARG, 0, 0, 0, 0, 0, 0},
++   (unsigned char **) &opt_local_infile,
++   (unsigned char **) &opt_local_infile, 0, GET_BOOL, OPT_ARG, 0, 0, 0, 0, 0, 0},
+ 
+-  {"max_join_size", OPT_MAX_JOIN_SIZE, "", (gptr*) &max_join_size,
+-   (gptr*) &max_join_size, 0, GET_ULONG, REQUIRED_ARG, 1000000L, 1, ~0L, 0, 1,
++  {"max_join_size", OPT_MAX_JOIN_SIZE, "", (unsigned char **) &max_join_size,
++   (unsigned char **) &max_join_size, 0, GET_ULONG, REQUIRED_ARG, 1000000L, 1, ~0L, 0, 1,
+    0},
+ 
+-  { 0, 0, 0, 0, 0, 0, GET_NO_ARG, NO_ARG, 0, 0, 0, 0, 0, 0}
++  { 0, 0, 0, 0, 0, 0, GET_NO_ARG, NO_ARG, 0, 0, 0, 0, 0, 0}
+ };
+ 
+ 
