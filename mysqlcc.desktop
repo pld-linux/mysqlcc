@@ -4,8 +4,6 @@ Comment=MySQL Control Center
 Exec=mysqlcc
 Terminal=false
 Type=Application
-Icon=mysqlcc.png
+Icon=mysqlcc
 Categories=Qt;Office;Database;
-Encoding=UTF-8
 # vi: encoding=utf-8
-
