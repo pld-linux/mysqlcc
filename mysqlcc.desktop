@@ -5,5 +5,5 @@ Exec=mysqlcc
 Terminal=false
 Type=Application
 Icon=mysqlcc
-Categories=Qt;Office;Database;
+Categories=Qt;Database;System;
 # vi: encoding=utf-8
