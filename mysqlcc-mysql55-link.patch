@@ -1,0 +1,11 @@
+--- mysqlcc-0.9.4-src/mysqlcc.pro.in~	2003-12-14 00:10:43.000000000 +0100
++++ mysqlcc-0.9.4-src/mysqlcc.pro.in	2011-02-03 12:00:47.337516516 +0100
+@@ -27,7 +27,7 @@
+ }
+ 
+ unix {
+-      LIBS        += @MYSQL_LIB@ 
++      LIBS        += @MYSQL_LIB@ -Wl,-static -lmysqlclient -Wl,-Bdynamic -lpthread
+       INCLUDEPATH += @MYSQL_INCLUDE@
+       CONFIG      += x11 
+       OBJECTS_DIR  = tmp

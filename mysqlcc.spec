@@ -6,7 +6,7 @@ Summary(pl.UTF-8):	Centrum sterowania MySQL-a
 Name:		mysqlcc
 Group:		Applications/Databases
 Version:	0.9.4
-Release:	17
+Release:	18
 License:	GPL
 Source0:	http://sunsite.icm.edu.pl/mysql/Downloads/MySQLCC/%{name}-%{version}-src.tar.gz
 # Source0-md5:	26ee3528dce690b227d8bfb71b46ae66
@@ -17,13 +17,20 @@ Patch2:		%{name}-shutdown.patch
 Patch3:		%{name}-enablessl.patch
 Patch4:		%{name}-reconnect.patch
 Patch5:		%{name}-gptr.patch
+Patch6:		%{name}-mysql55-link.patch
 URL:		http://www.mysql.com/products/mysqlcc/
 BuildRequires:	ImageMagick
 BuildRequires:	ImageMagick-coder-png
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{!?with_mysql40:BuildRequires:	mysql-devel >= 4.1.0}
-%{?with_mysql40:BuildRequires:	mysql-devel >= 4.0.0}
+%if %{with mysql40}
+BuildRequires:	mysql-devel >= 4.0.0
+# mysqlcc uses some internal functions from mysql which are no longer exported
+# in dynamic version. Linkt these functions statically while the rest of mysql
+# functions dynamicly (see mysql55-link.patch)
+BuildRequires:	mysql-static >= 4.0.0
+%endif
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 3:3.0.5
 BuildRequires:	zlib-devel
@@ -45,6 +52,7 @@ administracji MySQL-em. Działa w oparciu o toolkit Qt Trolltecha.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 cp -f /usr/share/automake/config.sub .
@@ -52,6 +60,7 @@ cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 QTDIR=%{_prefix}; export QTDIR
 QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++; export QMAKESPEC
+LDFLAGS="%{rpmldflags} -Wl,-static -lmysqlclient -Wl,-Bdynamic"; export LDFLAGS
 %configure \
 	--with-mysql-lib=%{_libdir}
 %{__make}
